@@ -69,8 +69,12 @@ This module contains functions to manage media:
 
   # Functions to export from this module
   FunctionsToExport = @(
-    'ConvertTo-M4b'
-#    'Export-Metadata'
+    'Convert-Mp3FolderToAudiobook'
+    'Export-AudiobookMetadata'
+    'Get-AudioMetadata'
+    'Get-AudiobookMetadata'
+    'Get-BottomLevelDirectories'
+    'Import-AudiobookMetadata'
   )
 
   # Cmdlets to export from this module

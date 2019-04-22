@@ -1,4 +1,4 @@
-function Get-Info () {
+function Get-MediaFileInfo () {
   <#
   .SYNOPSIS
   Converts a set of mp3 files into an m4b audiobook file.
@@ -17,7 +17,7 @@ function Get-Info () {
   #>
   [CmdletBinding()]
   param(
-    [Parameter(Mandatory=$true, Position = 1)]
+    [Parameter(Mandatory=$true, Position=1)]
     [string]
     $path
   )
@@ -31,18 +31,19 @@ function Get-Info () {
   $shellfolder = $shell.Namespace($folder)
   $shellfile = $shellfolder.ParseName($file)
   
-  # 0..287 | Foreach-Object {
-    # $val = $shellfolder.GetDetailsOf($shellfile, $_)
-    # if ($val) {
-        # Write-Output ('{0} = {1}' -f $_, $val)
-    # }
-  # }
+  0..287 | Foreach-Object {
+    $val = $shellfolder.GetDetailsOf($shellfile, $_)
+    if ($val) {
+      Write-Output ('{0} = {1}' -f $_, $val)
+    }
+  } | Out-Null
 
   return @{
     'artist' = $shellfolder.GetDetailsOf($shellfile, 13);
     'album' = $shellfolder.GetDetailsOf($shellfile, 14);
     'year' = $shellfolder.GetDetailsOf($shellfile, 15);
     'name' = $shellfolder.GetDetailsOf($shellfile, 21);
+    'comment' = $shellfolder.GetDetailsOf($shellfile, 24);
     'duration' = $shellfolder.GetDetailsOf($shellfile, 27);
   }
 }
